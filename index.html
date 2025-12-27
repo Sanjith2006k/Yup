@@ -3,211 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <title>Birthday Surprise 🎉</title>
+
 <style>
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
-    body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        height: 100vh;
-        background: radial-gradient(circle at top, #ff9a9e, #6a11cb);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        color: white;
-    }
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    background: radial-gradient(circle at top, #ff9a9e, #6a11cb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+}
 
-    .card {
-        backdrop-filter: blur(15px);
-        background: rgba(255,255,255,0.15);
-        border-radius: 25px;
-        padding: 40px 30px;
-        text-align: center;
-        width: 360px;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-        animation: float 4s ease-in-out infinite;
-    }
+.card {
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.15);
+    border-radius: 25px;
+    padding: 40px 30px;
+    text-align: center;
+    width: 360px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    animation: float 4s ease-in-out infinite;
+}
 
-    @keyframes float {
-        0%,100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
-    }
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
 
-    h1 {
-        margin: 0;
-        font-size: 28px;
-    }
+h1 {
+    margin: 10px 0;
+    font-size: 26px;
+}
 
-    .subtitle {
-        opacity: 0.9;
-        margin-top: 10px;
-    }
+.subtitle {
+    opacity: 0.9;
+    margin-top: 10px;
+}
 
-    /* GIFT BUTTON */
-    .gift-btn {
-        margin-top: 30px;
-        background: linear-gradient(135deg,#ff4d6d,#ffd166);
-        border: none;
-        padding: 15px 30px;
-        border-radius: 50px;
-        color: black;
-        font-weight: bold;
-        font-size: 16px;
-        cursor: pointer;
-        animation: pulse 2s infinite;
-    }
+.gift-btn {
+    margin-top: 30px;
+    background: linear-gradient(135deg,#ff4d6d,#ffd166);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
 
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(255,77,109,0.7); }
-        70% { box-shadow: 0 0 0 20px rgba(255,77,109,0); }
-        100% { box-shadow: 0 0 0 0 rgba(255,77,109,0); }
-    }
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,77,109,0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(255,77,109,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,77,109,0); }
+}
 
-    /* POPUP */
-    .popup {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.7);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-    }
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
 
-    .popup-box {
-        background: white;
-        color: #333;
-        border-radius: 25px;
-        width: 380px;
-        padding: 25px;
-        text-align: center;
-        animation: zoomIn 0.7s ease;
-        position: relative;
-    }
+.popup-box {
+    background: white;
+    color: #333;
+    border-radius: 25px;
+    width: 380px;
+    padding: 25px;
+    text-align: center;
+    animation: zoomIn 0.7s ease;
+    position: relative;
+}
 
-    @keyframes zoomIn {
-        from { transform: scale(0.5); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
+@keyframes zoomIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
 
-    .popup-box img {
-        width: 100%;
-        border-radius: 20px;
-        box-shadow: 0 0 25px rgba(255,77,109,0.7);
-    }
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
 
-    .success {
-        margin-top: 15px;
-        font-weight: bold;
-        color: green;
-    }
+#loader p {
+    font-weight: bold;
+}
 
-    .amount {
-        font-size: 26px;
-        color: #2ecc71;
-        font-weight: bold;
-        margin: 10px 0;
-    }
+#bar {
+    height: 12px;
+    width: 0%;
+    background: #2ecc71;
+    transition: width 0.3s;
+}
 
-    .funny {
-        margin-top: 10px;
-        font-weight: 600;
-        color: #ff4d6d;
-        min-height: 40px;
-    }
+.popup-box img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255,77,109,0.7);
+}
 
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 22px;
-        cursor: pointer;
-    }
+.success {
+    margin-top: 15px;
+    font-weight: bold;
+    color: green;
+}
 
-    
-    .confetti {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        animation: fall 3s linear infinite;
-    }
+.amount {
+    font-size: 26px;
+    color: #2ecc71;
+    font-weight: bold;
+    margin: 10px 0;
+}
 
-    @keyframes fall {
-        from { transform: translateY(-100px) rotate(0deg); }
-        to { transform: translateY(100vh) rotate(360deg); }
-    }
+.funny {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #ff4d6d;
+    min-height: 40px;
+}
+
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    animation: fall 3s linear infinite;
+}
+
+@keyframes fall {
+    from { transform: translateY(-100px) rotate(0deg); }
+    to { transform: translateY(100vh) rotate(360deg); }
+}
+
+@media (max-width:480px) {
+    .card, .popup-box { width: 90%; }
+    h1 { font-size: 22px; }
+}
 </style>
 </head>
+
 <body>
 
-<div class="card">
-    <h1>Happy Birthday SAHANA 🥳!!!</h1>
-    <p class="subtitle">A very special surprise awaits you 💝</p>
-    <button class="gift-btn" onclick="openPopup()">🎁 Open Your Gift</button>
-</div>
+<audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+<audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
 
+<div class="card">
+    <h1>⚠️ WARNING ⚠️</h1>
+   
+
+    <h1>Happy Birthday SAHANA 🥳🎂</h1>
+   <p>Your Birthday Gift Awaits 💖🥳</p>
+
+    <button class="gift-btn" onclick="openPopup()">🎁 Open Your "Gift"</button>
+</div>
 
 <div class="popup" id="popup">
     <div class="popup-box">
         <span class="close" onclick="closePopup()">❌</span>
 
-       
-        <img src="Untitled.png" alt="Birthday Photo">
+        <div id="loader" style="display:none;">
+            <p>💸 Sending ₹1,00,00,000...</p>
+            <div style="background:#ddd;border-radius:20px;overflow:hidden;">
+                <div id="bar"></div>
+            </div>
+        </div>
 
-        <div class="success">✅ Bank Transaction Successful</div>
-        <div class="amount">₹1,00,00,000</div>
-        <div class="funny" id="funnyText"></div>
+        <div id="realContent" style="display:none;">
+            <img src="Untitled.png" alt="Birthday Photo">
+            <div class="success">✅ Bank Transaction Successful</div>
+            <div class="amount">₹1,00,00,000</div>
+            <div class="funny" id="funnyText"></div>
+        </div>
     </div>
 </div>
 
 <script>
-    const messages = [
-        "Rosemilk treat ah kudhuthurnga podhum\n😔🙏"
-    ];
+const messages = [
+   "Rosemilk treat ah kudhuthurnga podhum\n😔🙏"
+];
 
-    function openPopup() {
-        document.getElementById("popup").style.display = "flex";
-        typeWriter(messages[Math.floor(Math.random() * messages.length)]);
-        confetti();
-    }
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("clickSound").play();
 
-    function closePopup() {
-        document.getElementById("popup").style.display = "none";
-        document.getElementById("funnyText").innerText = " ";
-    }
+    document.getElementById("loader").style.display = "block";
+    document.getElementById("realContent").style.display = "none";
 
-    
+    let bar = document.getElementById("bar");
+    let width = 0;
+
+    let loading = setInterval(() => {
+        width += 10;
+        bar.style.width = width + "%";
+
+        if (width >= 100) {
+            clearInterval(loading);
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("realContent").style.display = "block";
+            document.getElementById("successSound").play();
+
+            typeWriter(messages[Math.floor(Math.random() * messages.length)]);
+            confetti();
+        }
+    }, 300);
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("funnyText").innerHTML = "";
+    document.getElementById("bar").style.width = "0%";
+}
+
 function typeWriter(text) {
     let i = 0;
     const el = document.getElementById("funnyText");
-    el.innerHTML = "";   
+    el.innerHTML = "";
 
     const interval = setInterval(() => {
-        if (text[i] === " ") {
-            el.innerHTML += "&nbsp;"; 
-        } else if (text[i] === "\n") {
-            el.innerHTML += "<br>"; 
-        } else {
-            el.innerHTML += text[i];
-        }
+        if (text[i] === "\n") el.innerHTML += "<br>";
+        else el.innerHTML += text[i];
         i++;
         if (i >= text.length) clearInterval(interval);
     }, 40);
 }
 
-
-    function confetti() {
-        for (let i = 0; i < 60; i++) {
-            const c = document.createElement("div");
-            c.className = "confetti";
-            c.style.left = Math.random() * 100 + "vw";
-            c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-            c.style.animationDuration = (Math.random()*2 + 2) + "s";
-            document.body.appendChild(c);
-            setTimeout(() => c.remove(), 3000);
-        }
+function confetti() {
+    for (let i = 0; i < 60; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        c.style.animationDuration = (Math.random()*2 + 2) + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
     }
+}
 </script>
 
 </body>
